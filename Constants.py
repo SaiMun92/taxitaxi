@@ -2,20 +2,24 @@
 NA_Value = -1
 
 
-#Name of the training file
+# Default value in hours between Singapore (UTC+ 8) and Libson (UTC-1)
+UTC_LAG_BETWEEN_SG_AND_LIBSON = 0 #hours
+
+
+# Name of the training file
 TRAIN_CSV_FILE_NAME = "data/train.csv"
 
-#Name of the testing file
+# Name of the testing file
 TEST_CSV_FILE_NAME = "data/test.csv"
 
-#Max speed limit in km/h before discarding the row
+# Max speed limit in km/h before discarding the row
 MAX_SPEED_LIMIT_BEFORE_DISCARDING = 130
 
-#Max duration for a drive (in seconds)
+# Max duration for a drive (in seconds)
 MAX_DURATION_BEFORE_DISCARDING = 3600 * 2 #thats 2 hours
 
 
-#Poly files
+# Poly files
 LAT_ID = 0
 LONG_ID = 1
 
