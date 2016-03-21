@@ -33,6 +33,6 @@ def speeds(polyline):
     v = [0.]*N
     v[0] = 0
     for i in range(1, N):
-        v[i] = ( dist( polyline[i-1] , polyline[i] ) / 15 ) * 3.6 # KM/H
+        v[i] = ( dist( polyline[i-1] , polyline[i] ) / 15 ) * 3.6 # dist() = haversine distance per second * 3.6
 
     return v
