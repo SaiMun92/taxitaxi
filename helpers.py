@@ -56,14 +56,14 @@ def pre_process_generic_data(filename, isTest = False):
                     polyline_tmp = polyline # pointer to polyline. No problem. It's Read Only
                 else:
                     polyline_tmp = cp.copy(polyline)
-                    polyline_tmp.pop()      # returns the last iten of the polyline_tmp 
+                    polyline_tmp.pop()      # returns the last iten of the polyline_tmp  
 
                 speeds = sp.speeds(polyline_tmp)    # a list of speed from polyline
                 mean_speed.append(np.mean(speeds))  # find the mean speed
                 last_speed.append(speeds[-1])       # last known speed
 
                 if len(speeds) > 1:
-                    last_last_speed.append(speeds[-2]) #two last speeds to have an acceleration measure
+                    last_last_speed.append(speeds[-2]) # two last speeds to have an acceleration measure
                 else:
                     last_last_speed.append(0)
             else:
@@ -71,16 +71,16 @@ def pre_process_generic_data(filename, isTest = False):
                 last_speed.append(0)
                 last_last_speed.append(0)
 
-            #writing to the list 
+            # writing to the list 
             if isTest:
-                append_to_list(lat1, polyline, 0, LAT_ID)   #staring point
-                append_to_list(lat2, polyline, -1, LAT_ID)  #ending point
-                append_to_list(long1, polyline, 0, LONG_ID)
-                append_to_list(long2, polyline, -1, LONG_ID)
+                append_to_list(lat1, polyline, 0, LAT_ID)   # staring point
+                append_to_list(lat2, polyline, -1, LAT_ID)  # ending point
+                append_to_list(long1, polyline, 0, LONG_ID) # LAT_ID = 0
+                append_to_list(long2, polyline, -1, LONG_ID)# LONG_ID = 1
 
             else:
                 append_to_list(lat1, polyline, 0, LAT_ID)
-                append_to_list(lat2, polyline, -2, LAT_ID)
+                append_to_list(lat2, polyline, -2, LAT_ID)  
                 append_to_list(lat_final, polyline, -1, LAT_ID)
                 append_to_list(long1, polyline, 0, LONG_ID)
                 append_to_list(long2, polyline, -2, LONG_ID)
