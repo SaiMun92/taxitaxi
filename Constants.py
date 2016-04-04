@@ -1,25 +1,24 @@
-#NaN values
-NA_Value = -1
 
+# default value for N/A, NaN cases
+NA_VALUE = -1
 
-# Default value in hours between Singapore (UTC+ 8) and Libson (UTC-1)
-UTC_LAG_BETWEEN_SG_AND_LIBSON = 0 #hours
+# Bug: it's okay if there is 8 hours of lag. The problem is the same.
+# Default value in hours between Tokyo (UTC+9) and Lisbon (UTC+1)
+UTC_LAG_BETWEEN_TOKYO_AND_LISBON = 0 #hours
 
-
-# Name of the training file
+# Name of the training file (relative location)
 TRAIN_CSV_FILE_NAME = "data/train.csv"
 
-# Name of the testing file
+# Name of the testing file (relative location)
 TEST_CSV_FILE_NAME = "data/test.csv"
 
-# Max speed limit in km/h before discarding the row
+# Max speed limit in Km/h before discarding the row
 MAX_SPEED_LIMIT_BEFORE_DISCARDING = 130
 
 # Max duration for a drive (in seconds)
-MAX_DURATION_BEFORE_DISCARDING = 3600 * 2 #thats 2 hours
+MAX_DURATION_BEFORE_DISCARDING = 3600 * 2 # 2 hours
 
-
-# Poly files
+# In Poly files
 LAT_ID = 0
 LONG_ID = 1
 

@@ -20,7 +20,7 @@ def load_test_file():
     print (" ... [OK]")
     return handle
 
-#using pandas to read the file
+#using pandas
 def load_file(str):
     handle = pd.read_csv(str)       
     return handle
@@ -33,37 +33,36 @@ def new_data_frame():
 
 def pre_process_generic_data(filename, isTest = False):
 
-    # Initialise the list
     lat1 = []; long1 = []; lat2 = []; long2 = []; lat_final = []; long_final = [];
     hours = []; duration = []; mean_speed = []; last_speed = []; last_last_speed = []
 
     count = 1
-    chunk_size = 10 ** 5 # 10^5 = 100.000 lines at a time due to memory issue.
-
+    chunk_size = 10 ** 5 # 10^5 = 100.000 lines at a time
     for data in pd.read_csv(filename, chunksize = chunk_size):
         data[POLYLINE] = data[POLYLINE].apply(json.loads)
-        for i in range(len(data)):      # range(3): [0,1,2]
-            datetime_sg = datetime.fromtimestamp(data[TIMESTAMP].values[i])
-            hours.append(datetime_sg.hour - UTC_LAG_BETWEEN_SG_AND_LIBSON 
+        for i in range(len(data)):
+
+            datetime_tokyo = datetime.fromtimestamp(data[TIMESTAMP].values[i])
+            hours.append(datetime_tokyo.hour - UTC_LAG_BETWEEN_TOKYO_AND_LISBON)
 
             #reminder: the last value should not be known from the training set. Better known as lat_final
-            polyline = data[POLYLINE].values[i]     #get the polyline from each row
-            duration.append( len(polyline) * 15)    #calcuate the total time in seconds
+            polyline = data[POLYLINE].values[i]
+            duration.append( len(polyline) * 15)
 
-            if len(polyline) > 1:                   #if the length of trip has more than one polyline data
+            if len(polyline) > 1:
 
-                if isTest:                  
+                if isTest:
                     polyline_tmp = polyline # pointer to polyline. No problem. It's Read Only
                 else:
                     polyline_tmp = cp.copy(polyline)
-                    polyline_tmp.pop()      # returns the last iten of the polyline_tmp  
+                    polyline_tmp.pop()
 
-                speeds = sp.speeds(polyline_tmp)    # a list of speed from polyline
-                mean_speed.append(np.mean(speeds))  # find the mean speed
-                last_speed.append(speeds[-1])       # last known speed
+                speeds = sp.speeds(polyline_tmp)    
+                mean_speed.append(np.mean(speeds))
+                last_speed.append(speeds[-1])
 
                 if len(speeds) > 1:
-                    last_last_speed.append(speeds[-2]) # two last speeds to have an acceleration measure
+                    last_last_speed.append(speeds[-2]) #two last speeds to have an acceleration measure
                 else:
                     last_last_speed.append(0)
             else:
@@ -71,16 +70,16 @@ def pre_process_generic_data(filename, isTest = False):
                 last_speed.append(0)
                 last_last_speed.append(0)
 
-            # writing to the list 
             if isTest:
-                append_to_list(lat1, polyline, 0, LAT_ID)   # staring point
-                append_to_list(lat2, polyline, -1, LAT_ID)  # ending point
-                append_to_list(long1, polyline, 0, LONG_ID) # LAT_ID = 0
-                append_to_list(long2, polyline, -1, LONG_ID)# LONG_ID = 1
+                append_to_list(lat1, polyline, 0, LAT_ID)
+                append_to_list(lat2, polyline, -1, LAT_ID)
+                append_to_list(long1, polyline, 0, LONG_ID)
+                append_to_list(long2, polyline, -1, LONG_ID)
 
             else:
+                # [longitude, latitude]
                 append_to_list(lat1, polyline, 0, LAT_ID)
-                append_to_list(lat2, polyline, -2, LAT_ID)  
+                append_to_list(lat2, polyline, -2, LAT_ID)  # get the second last polyline data
                 append_to_list(lat_final, polyline, -1, LAT_ID)
                 append_to_list(long1, polyline, 0, LONG_ID)
                 append_to_list(long2, polyline, -2, LONG_ID)

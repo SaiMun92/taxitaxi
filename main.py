@@ -88,7 +88,7 @@ test = test.astype(float)
 print ("... [OK]")
 
 print ("learning process")
-clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=100, verbose = 1)
+clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=100, verbose = 1) # n_jobs is the number of cores
 clf.fit(train, labels)
 print (" ... [OK]")
 
