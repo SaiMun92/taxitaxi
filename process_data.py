@@ -1,7 +1,6 @@
 from helpers import *
 from serialize import *
 
-#clean the serialize folder
 clean_serialization_folder()
 
 #process the files
@@ -29,4 +28,4 @@ serialize(mean_speed_t, "speed_t")
 serialize(last_speed_t, "last_speed_t")
 serialize(last_last_speed_t, "last_last_speed_t")
 
-print ("Processing done. Program will exit.")
+print "Processing done. Program will exit."

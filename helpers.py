@@ -8,21 +8,21 @@ import copy as cp
 
 
 def load_train_file():
-    print ('reading train file'),
+    print 'reading train file',
     handle = load_file(TRAIN_CSV_FILE_NAME)
-    print (" ... [OK]")
+    print ' ... [OK]'
     return handle
 
 
 def load_test_file():
-    print ("reading test file"),
+    print 'reading test file',
     handle = load_file(TEST_CSV_FILE_NAME)
-    print (" ... [OK]")
+    print ' ... [OK]'
     return handle
 
-#using pandas
+
 def load_file(str):
-    handle = pd.read_csv(str)       
+    handle = pd.read_csv(str)
     return handle
 
 
@@ -57,7 +57,7 @@ def pre_process_generic_data(filename, isTest = False):
                     polyline_tmp = cp.copy(polyline)
                     polyline_tmp.pop()
 
-                speeds = sp.speeds(polyline_tmp)    
+                speeds = sp.speeds(polyline_tmp)
                 mean_speed.append(np.mean(speeds))
                 last_speed.append(speeds[-1])
 
@@ -77,9 +77,8 @@ def pre_process_generic_data(filename, isTest = False):
                 append_to_list(long2, polyline, -1, LONG_ID)
 
             else:
-                # [longitude, latitude]
                 append_to_list(lat1, polyline, 0, LAT_ID)
-                append_to_list(lat2, polyline, -2, LAT_ID)  # get the second last polyline data
+                append_to_list(lat2, polyline, -2, LAT_ID)
                 append_to_list(lat_final, polyline, -1, LAT_ID)
                 append_to_list(long1, polyline, 0, LONG_ID)
                 append_to_list(long2, polyline, -2, LONG_ID)
@@ -87,7 +86,7 @@ def pre_process_generic_data(filename, isTest = False):
 
             count += 1
             if count % 1000 == 0:
-                print (count)
+                print count
 
     if isTest :
         return lat1, long1, lat2, long2, hours, duration, mean_speed, last_speed, last_last_speed
